@@ -12,7 +12,7 @@ You can use this matcher to asert the actual value have expected type like bello
 expect([:foo, :bar]).to be_type_of([Symbol])
 
 # assert hash key and value
-expect({ foo: 1, bar: 2 }).to be_type_of({ Symbol # => String })
+expect({ foo: 1, bar: 2 }).to be_type_of({ Symbol => String })
 ```
 
 
