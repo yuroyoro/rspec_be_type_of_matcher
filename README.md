@@ -1,8 +1,18 @@
 # RspecBeTypeOfMatcher
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rspec_be_type_of_matcher`. To experiment with that code, run `bin/console` for an interactive prompt.
+Rspec matchers for strucural type assertion. Compare values of array to have all expeted_type, hash's key and value are expeted type.
 
-TODO: Delete this and the text above, and describe your gem
+You can use this matcher to asert the actual value have expected type like bellow.
+
+```ruby
+
+# assert array of Symbol
+expect([:foo, :bar]).to be_type_of([Symbol])
+
+# assert hash key and value
+expect({ foo: 1, bar: 2 }).to be_type_of({ Symbol # => String })
+```
+
 
 ## Installation
 
@@ -22,7 +32,127 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Or pattern
+
+ex) assert the value is a String or Symbol
+
+```ruby
+  # rspec build-in matcher
+  expect(:foo).to be_kind_of(String).or be_kind_of(Symnbol)
+
+  # ↓
+  expect("foo").to be_type_of(String, Symnbol)
+  expect(:foo).to be_type_of(String, Symnbol)
+  # => ok
+
+  expect(1).to be_type_of(String, Symnbol)
+  # => fali
+```
+
+### Allow nil value
+
+allow to conain nil value in actual collection.
+
+ex) assert the value is a String or nil
+
+```ruby
+  # rspec built-in matcher
+  expect(:foo).to be_nil.or be_kind_of(String)
+
+  # ↓
+  expect("foo").to be_type_of(String).or_nil
+  expect(nil).to be_type_of(String).or_nil
+  # => ok
+```
+
+### TrueClass/FalseClass
+
+ex) assert the value is a boolean
+
+```ruby
+  expect(true).to be_type_of(:boolean)
+  # => ok
+
+  expect(:foo).to be_type_of(:boolean)
+  # => fail
+```
+
+### Array pattern
+
+ex) assert the value is a Array of String
+
+```ruby
+  # rspec built-in matcher
+  expect(["foo", "bar"]).to all(be_type_of(String))
+  # => ok
+
+  # ↓
+  expect(["foo", "bar"]).to be_type_of([String])
+  # => ok
+
+  expect(["foo", :bar]).to be_type_of([String])
+  # => fail
+```
+
+Array pattern must exactly 1 value
+
+```ruby
+  expect(["foo", :bar]).to be_type_of([String, Symbol])
+  # => error
+```
+
+ex) assert the value is a Array of (String or Symbol)
+
+```ruby
+  # rspec built-in matcher
+  expect(["foo", :bar]).to all(be_kind_of(String).or be_kind_of(Symbol))
+
+  # ↓
+  expect(["foo", :bar]).to be_type_of([be_type_of(String, Symbol)])
+  # => ok
+```
+
+### Hash pattern
+
+ex) assert the value is a Hash those key is Symbol and value is String
+
+```ruby
+  # rspec built-in matcher
+  expect({foo: "aaa"}.keys).to all(be_kind_of(Symbol))
+  expect({foo: "aaa"}.values).to all(be_kind_of(String))
+
+  # ↓
+  expect({foo: "aaa"}).to be_type_of(Symbol => String)
+  # => ok
+
+  expect({foo: "aaa", bar: :bbb}).to be_type_of(Symbol => String)
+  # => fail
+```
+
+Hash pattern must exactly 1 entry
+
+```ruby
+  expect({foo: "aaa"}).to be_type_of(Symbol => String, Integer => String)
+  # => error
+```
+
+with composit matcher on values
+
+```ruby
+  expect({foo: "aaa", bar: 1}).to be_type_of(Symbol => be_type_of(Symbol, Integer))
+  # => ok
+```
+
+with composit matcher on key and values
+
+```ruby
+  expect({foo: "aaa", "bar" => 1}).to be_type_of(
+    be_type_of(
+      be_type_of(String, Symbol) => be_type_of(Symbol, Integer)
+    )
+  )
+  # => ok
+```
 
 ## Development
 

@@ -1,11 +1,11 @@
 
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "rspec_be_type_of_matcher/version"
+require "version"
 
 Gem::Specification.new do |spec|
   spec.name          = "rspec_be_type_of_matcher"
-  spec.version       = RspecBeTypeOfMatcher::VERSION
+  spec.version       = BeTypeOfMatcher::VERSION
   spec.authors       = ["Tomohito Ozaki"]
   spec.email         = ["ozaki@yuroyoro.com"]
 

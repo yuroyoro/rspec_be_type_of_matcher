@@ -1,4 +1,7 @@
 require "bundler/setup"
+Bundler.setup
+
+require "pry-byebug"
 require "rspec_be_type_of_matcher"
 
 RSpec.configure do |config|
