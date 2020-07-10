@@ -17,7 +17,7 @@ GEM
     pry-byebug (3.9.0)
       byebug (~> 11.0)
       pry (~> 0.13.0)
-    rake (10.5.0)
+    rake (12.3.3)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -38,7 +38,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.17)
   pry-byebug
-  rake (~> 10.0)
+  rake (~> 12.3)
   rspec_be_type_of_matcher!
 
 BUNDLED WITH
