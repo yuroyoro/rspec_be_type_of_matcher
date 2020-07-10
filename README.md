@@ -1,5 +1,7 @@
 # RspecBeTypeOfMatcher
 
+[![Gem Version](https://badge.fury.io/rb/rspec_be_type_of_matcher.svg)](https://badge.fury.io/rb/rspec_be_type_of_matcher)
+
 Rspec matchers for strucural type assertion. Compare values of array to have all expeted_type, hash's key and value are expeted type.
 
 You can use this matcher to asert the actual value have expected type like bellow.
